@@ -11,5 +11,19 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Book> Books => Set<Book>();
     public DbSet<Author> Authors => Set<Author>();
+    public DbSet<BookAuthor> BookAuthors { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<BookAuthor>()
+            .HasOne(ba => ba.Book)
+            .WithMany(b => b.BookAuthors)
+            .HasForeignKey("BookId"); 
+
+        modelBuilder.Entity<BookAuthor>()
+            .HasOne(ba => ba.Author)
+            .WithMany(a => a.BookAuthors)
+            .HasForeignKey("AuthorId"); 
+    }
 }
 

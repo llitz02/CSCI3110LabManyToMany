@@ -11,6 +11,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<Initializer>();
 builder.Services.AddScoped<IBookRepository, DbBookRepository>();
 builder.Services.AddScoped<IAuthorRepository, DbAuthorRepository>();
+builder.Services.AddScoped<IBookAuthorRepository, DbBookAuthorRepository>();
 
 var app = builder.Build();
 await SeedDataAsync(app);
@@ -19,7 +20,6 @@ await SeedDataAsync(app);
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

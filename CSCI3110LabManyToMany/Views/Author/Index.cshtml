@@ -1,11 +1,13 @@
-﻿@model IEnumerable<Author>
+@model IEnumerable<CSCI3110LabManyToMany.Models.AuthorDetailsVM>
 
 @{
-    ViewData["Title"] = "All Authors";
+    ViewData["Title"] = "Authors";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>Authors</h1>
 
+<p>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -18,25 +20,29 @@
             <th>
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfBooks)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfBooks)
+            </td>
+
+        </tr>
+}
     </tbody>
 </table>
