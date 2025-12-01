@@ -58,7 +58,8 @@ export function main() {
             row.appendChild(tdId);
 
             const tdName = document.createElement('td');
-            tdName.textContent = author.name ?? author.Name ?? '';
+            const fullName = `${author.firstName ?? author.FirstName ?? ''} ${author.lastName ?? author.LastName ?? ''}`.trim();
+            tdName.textContent = fullName || '(No name)';
             row.appendChild(tdName);
 
             const tdBtn = document.createElement('td');
@@ -123,38 +124,3 @@ export function main() {
 document.addEventListener('DOMContentLoaded', () => {
     main();
 });
-const bookIndex = (function () {
-    let assignAuthorModal;
-
-    const setupEventListeners = function () {
-        const warningLinks = document.querySelectorAll('a.btn-warning');
-        
-        warningLinks.forEach(link => {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-                console.log(link.href);
-                assignAuthorModal.show();
-            });
-        });
-
-        const closeButton = document.querySelector('#assignAuthorModal .btn-close');
-        if (closeButton) {
-            closeButton.addEventListener('click', function () {
-                assignAuthorModal.hide();
-            });
-        }
-    };
-
-    const main = function () {
-        console.log('Book Index module loaded');
-        const assignAuthorModalDOM = document.getElementById('assignAuthorModal');
-        assignAuthorModal = new bootstrap.Modal(assignAuthorModalDOM);
-        setupEventListeners();
-    };
-
-    return {
-        init: main
-    };
-})();
-
-bookIndex.init();
