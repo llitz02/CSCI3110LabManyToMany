@@ -25,4 +25,15 @@ public class BookController : Controller
         }).ToList();
         return View(bookDetailsCollection);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> AssignAuthor([Bind(Prefix = "id")] int bookId, int authorId)
+    {
+        var success = await _bookRepo.AssignAuthorToBookAsync(bookId, authorId);
+        if (!success)
+        {
+            return Json(new { ok = false, message = "Author assignment failed" });
+        }
+        return Json("Ok");
+    }
 }

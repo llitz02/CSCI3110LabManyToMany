@@ -14,6 +14,17 @@ public class DbAuthorRepository : IAuthorRepository
 
     public async Task<ICollection<Author>> ReadAllAsync()
     {
-        return await _db.Authors.ToListAsync();
+        return await _db.Authors
+            .Include(a => a.BookAuthors)
+                .ThenInclude(ba => ba.Book)
+            .ToListAsync();
+    }
+
+    public async Task<Author?> ReadAsync(int id)
+    {
+        return await _db.Authors
+            .Include(a => a.BookAuthors)
+                .ThenInclude(ba => ba.Book)
+            .FirstOrDefaultAsync(a => a.Id == id);
     }
 }

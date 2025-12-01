@@ -9,7 +9,5 @@ public class Author
     public string? FirstName { get; set; }
     [StringLength(128)]
     public string LastName { get; set; } = String.Empty;
-
-    public ICollection<BookAuthor> BookAuthors { get; set;
-}
+    public ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
 }

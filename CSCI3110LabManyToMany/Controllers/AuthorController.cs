@@ -25,4 +25,21 @@ public class AuthorController : Controller
         }).ToList();
         return View(authorDetailsCollection);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var allAuthors = await _authorRepo.ReadAllAsync();
+        // This is a workaround to avoid circular references
+        foreach (var author in allAuthors)
+        {
+            if (author.BookAuthors == null) continue;
+            foreach (var bookAuthor in author.BookAuthors)
+            {
+                bookAuthor.Book = null;
+                bookAuthor.Author = null;
+            }
+        }
+        return Json(allAuthors);
+    }
 }
